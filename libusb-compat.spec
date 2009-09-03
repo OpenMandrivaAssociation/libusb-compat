@@ -3,10 +3,14 @@
 %define devellibname %mklibname -d usb-compat %major
 %define sdevellibname %mklibname -s -d usb-compat %major
 
+%define oldlibusb_version 0.1.12-13mdv2010.0
+%define oldlibusb_api     0.1
+%define oldlibusb_major   4
+
 Summary: A library which allows userspace access to USB devices
 Name: libusb-compat
 Version: 0.1.0
-Release: %mkrel 1
+Release: %mkrel 2
 Source0: http://downloads.sourceforge.net/libusb/libusb-compat-0.1/libusb-compat-0.1.0/%name-%{version}.tar.bz2
 License: LGPLv2+
 Group: System/Libraries
@@ -23,8 +27,11 @@ like libusb-0.1.
 Summary: %summary
 Group:	System/Libraries
 Requires: pkgconfig
-Obsoletes:  %{mklibname usb 0.1 4} > %version
-Provides:  %{mklibname usb 0.1 4} = %version
+Obsoletes:  %{mklibname usb %oldlibusb_api %oldlibusb_major} > %version
+Provides:  %{mklibname usb %oldlibusb_api %oldlibusb_major} = %version
+Provides:  %{mklibname usb %oldlibusb_api %oldlibusb_major} = %oldlibusb_version
+Provides:  %{mklibname usb %oldlibusb_api }  = %oldlibusb_version
+Provides:  %{mklibname usb} = %oldlibusb_version
 
 %description -n %libname
 A compatibility layer allowing applications written for libusb-0.1 to work
@@ -35,7 +42,12 @@ like libusb-0.1.
 Summary: Development files for libusb
 Group:	Development/C
 Requires: %{libname} = %{version}
+Obsoletes: %{mklibname usb -d} 
+Provides: %{mklibname usb -d}
 Provides: libusb-devel = %version, usb-devel = %version, usb-compat-devel
+Provides: %{mklibname usb %oldlibusb_api %oldlibusb_major -d} = %oldlibusb_version
+Provides: %{mklibname usb %oldlibusb_api -d}   = %oldlibusb_version
+Provides: devel(libusb-0.1)
 Requires: pkgconfig
 
 %description -n %devellibname
