@@ -49,7 +49,11 @@ Provides: %{mklibname usb %oldlibusb_api %oldlibusb_major -d} = %oldlibusb_versi
 Obsoletes: %{mklibname usb %oldlibusb_api -d} < %oldlibusb_version
 Provides: %{mklibname usb %oldlibusb_api -d} = %oldlibusb_version
 Provides: libusb-devel = %oldlibusb_version
+%if "%{?_lib}" == "lib64"
+Provides: devel(libusb-0.1(64bit))
+%else
 Provides: devel(libusb-0.1)
+%endif
 Requires: pkgconfig
 
 %description -n %devellibname
