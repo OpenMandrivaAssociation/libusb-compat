@@ -10,7 +10,7 @@
 Summary: A library which allows userspace access to USB devices
 Name: libusb-compat
 Version: 0.1.0
-Release: %mkrel 3
+Release: %mkrel 4
 Source0: http://downloads.sourceforge.net/libusb/libusb-compat-0.1/libusb-compat-0.1.0/%name-%{version}.tar.bz2
 License: LGPLv2+
 Group: System/Libraries
@@ -32,6 +32,9 @@ Provides:  %{mklibname usb %oldlibusb_api %oldlibusb_major} = %version
 Provides:  %{mklibname usb %oldlibusb_api %oldlibusb_major} = %oldlibusb_version
 Provides:  %{mklibname usb %oldlibusb_api }  = %oldlibusb_version
 Provides:  %{mklibname usb} = %oldlibusb_version
+%if "%{?_lib}" == "lib64"
+Provides:  libusb = %oldlibusb_version
+%endif
 
 %description -n %libname
 A compatibility layer allowing applications written for libusb-0.1 to work
@@ -48,8 +51,8 @@ Provides: libusb-devel = %version, usb-devel = %version, usb-compat-devel
 Provides: %{mklibname usb %oldlibusb_api %oldlibusb_major -d} = %oldlibusb_version
 Obsoletes: %{mklibname usb %oldlibusb_api -d} < %oldlibusb_version
 Provides: %{mklibname usb %oldlibusb_api -d} = %oldlibusb_version
-Provides: libusb-devel = %oldlibusb_version
 %if "%{?_lib}" == "lib64"
+Provides: libusb-devel = %oldlibusb_version
 Provides: devel(libusb-0.1(64bit))
 %else
 Provides: devel(libusb-0.1)
