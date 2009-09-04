@@ -10,13 +10,14 @@
 Summary: A library which allows userspace access to USB devices
 Name: libusb-compat
 Version: 0.1.0
-Release: %mkrel 4
+Release: %mkrel 5
 Source0: http://downloads.sourceforge.net/libusb/libusb-compat-0.1/libusb-compat-0.1.0/%name-%{version}.tar.bz2
 License: LGPLv2+
 Group: System/Libraries
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-
 URL: http://libusb.wiki.sourceforge.net/Libusb1.0
-BuildRequires: doxygen usb1-devel
+BuildRequires: doxygen 
+BuildRequires: usb1-devel
 
 %description
 A compatibility layer allowing applications written for libusb-0.1 to work
@@ -77,18 +78,18 @@ libusb0.
 %setup -q
 
 %build
-%configure2_5x
-%make CFLAGS="$RPM_OPT_FLAGS"
+%configure2_5x \
+	--libdir=/%_lib
+
+%make
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
-rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
+rm -rf %buildroot
+make install DESTDIR=%buildroot
 
-# move libs to /%_lib for UPS shutdown
-mkdir -p %{buildroot}/%_lib
-pushd %{buildroot}%{_libdir}
-mv *.so.* ../../%_lib/
+# Move only pkgconfig
+mkdir -p %buildroot/%_libdir
+mv %buildroot/%_lib/pkgconfig %buildroot/%_libdir/
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -103,12 +104,13 @@ rm -rf $RPM_BUILD_ROOT
 %doc examples/*.c
 %{_libdir}/pkgconfig/libusb.pc
 %{_includedir}/*
-%{_libdir}/*.so
+/%_lib/*.so
+/%_lib/*.la
 %_bindir/*
 
 %files -n %sdevellibname
 %defattr(-,root,root)
-%{_libdir}/*.a
+/%_lib/*.a
 
 
 
