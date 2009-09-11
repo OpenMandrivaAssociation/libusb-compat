@@ -6,13 +6,11 @@
 %define sdevellibname %mklibname -s -d usb-compat %api
 
 %define oldlibusb_version 0.1.12-14
-%define oldlibusb_api     0.1
-%define oldlibusb_major   4
 
 Summary: A library which allows userspace access to USB devices
 Name: libusb-compat
 Version: 0.1.0
-Release: %mkrel 5
+Release: %mkrel 6
 Source0: http://downloads.sourceforge.net/libusb/libusb-compat-0.1/libusb-compat-0.1.0/%name-%{version}.tar.bz2
 License: LGPLv2+
 Group: System/Libraries
