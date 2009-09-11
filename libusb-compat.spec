@@ -1,7 +1,9 @@
-%define major 0
-%define libname %mklibname usb-compat %major
-%define devellibname %mklibname -d usb-compat %major
-%define sdevellibname %mklibname -s -d usb-compat %major
+
+%define api 0.1
+%define major 4
+%define libname %mklibname usb-compat %api %major
+%define devellibname %mklibname -d usb-compat %api
+%define sdevellibname %mklibname -s -d usb-compat %api
 
 %define oldlibusb_version 0.1.12-14
 %define oldlibusb_api     0.1
@@ -28,14 +30,13 @@ like libusb-0.1.
 Summary: %summary
 Group:	System/Libraries
 Requires: pkgconfig
-Obsoletes:  %{mklibname usb %oldlibusb_api %oldlibusb_major} > %version
-Provides:  %{mklibname usb %oldlibusb_api %oldlibusb_major} = %version
-Provides:  %{mklibname usb %oldlibusb_api %oldlibusb_major} = %oldlibusb_version
-Provides:  %{mklibname usb %oldlibusb_api }  = %oldlibusb_version
-Provides:  %{mklibname usb} = %oldlibusb_version
-%if "%{?_lib}" == "lib64"
-Provides:  libusb = %oldlibusb_version
-%endif
+Provides: %{_lib}usb0.1_4 = %oldlibusb_version
+Obsoletes: %{_lib}usb0.1_4 < %oldlibusb_version
+# old provides from libusb0.1_4
+Provides: libusb = %oldlibusb_version
+Provides: libusb0.1 = %oldlibusb_version
+# wrong name for a short period in cooker
+Obsoletes: %{_lib}usb-compat0 < 0.1.0-6
 
 %description -n %libname
 A compatibility layer allowing applications written for libusb-0.1 to work
@@ -43,32 +44,34 @@ with libusb-1.0. libusb-compat-0.1 attempts to look, feel, smell and walk
 like libusb-0.1.
 
 %package -n %devellibname
-Summary: Development files for libusb
+Summary: Development files for libusb-0.1
 Group:	Development/C
 Requires: %{libname} = %{version}
-Obsoletes: %{mklibname usb -d} 
-Provides: %{mklibname usb -d}
-Provides: libusb-devel = %version, usb-devel = %version, usb-compat-devel
-Provides: %{mklibname usb %oldlibusb_api %oldlibusb_major -d} = %oldlibusb_version
-Obsoletes: %{mklibname usb %oldlibusb_api -d} < %oldlibusb_version
-Provides: %{mklibname usb %oldlibusb_api -d} = %oldlibusb_version
-%if "%{?_lib}" == "lib64"
+Provides: %{_lib}usb-devel = %oldlibusb_version
+Obsoletes: %{_lib}usb-devel < %oldlibusb_version
+Obsoletes: %{_lib}usb0.1_4-devel < %oldlibusb_version
+# wrong name for a short period in cooker:
+Obsoletes: %{_lib}usb-compat0-devel < 0.1.0-6
 Provides: libusb-devel = %oldlibusb_version
-Provides: devel(libusb-0.1(64bit))
-%else
-Provides: devel(libusb-0.1)
-%endif
+Provides: libusb0.1-devel = %oldlibusb_version
+Provides: usb-compat-devel = %{version}-%{release}
+Provides: usb0.1-devel = %{version}-%{release}
 Requires: pkgconfig
 
 %description -n %devellibname
 This package contains the header files, libraries  and documentation needed to
-develop applications that use libusb0.
+develop applications that use libusb-0.1.
 
 %package -n %sdevellibname
-Summary: Static development files for libusb
+Summary: Static development files for libusb-0.1
 Group:	Development/C
-Requires: %{libname}-devel = %{version}
-Provides: usb-static-devel = %version
+Requires: %{devellibname} = %{version}
+Provides: libusb-static-devel = %oldlibusb_version
+Provides: libusb0.1-static-devel = %oldlibusb_version
+Obsoletes: %{_lib}usb-static-devel < %oldlibusb_version
+Obsoletes: %{_lib}usb1.0_4-static-devel < %oldlibusb_version
+# wrong name for a short period in cooker:
+Obsoletes: %{_lib}usb-compat0-static-devel < 0.1.0-6
 
 %description -n %sdevellibname
 This package contains static libraries to develop applications that use
@@ -85,10 +88,16 @@ libusb0.
 
 %install
 rm -rf %buildroot
-make install DESTDIR=%buildroot
+%makeinstall_std
+%multiarch_binaries %{buildroot}%{_bindir}/libusb-config
 
-# Move only pkgconfig
-mkdir -p %buildroot/%_libdir
+# static library is not needed in /lib
+mkdir -p %{buildroot}%{_libdir}
+mv %{buildroot}/%{_lib}/libusb.a %{buildroot}%{_libdir}
+# add a symlink just in case libtool expects it to be there due to it
+# being referenced in the .la file
+ln -s %{_libdir}/libusb.a %{buildroot}/%{_lib}/libusb.a
+# move pkgconfig
 mv %buildroot/%_lib/pkgconfig %buildroot/%_libdir/
 
 %clean
@@ -97,20 +106,22 @@ rm -rf $RPM_BUILD_ROOT
 %files -n %libname
 %defattr(-,root,root)
 %doc AUTHORS COPYING README NEWS
-/%{_lib}/*.so.*
+/%{_lib}/libusb-%{api}.so.%{major}*
 
 %files -n %devellibname
 %defattr(-,root,root)
 %doc examples/*.c
 %{_libdir}/pkgconfig/libusb.pc
-%{_includedir}/*
-/%_lib/*.so
-/%_lib/*.la
-%_bindir/*
+%{_includedir}/usb.h
+/%_lib/libusb.so
+/%_lib/libusb.la
+%{multiarch_bindir}/libusb-config
+%_bindir/libusb-config
 
 %files -n %sdevellibname
 %defattr(-,root,root)
-/%_lib/*.a
+/%_lib/libusb.a
+%{_libdir}/libusb.a
 
 
 
