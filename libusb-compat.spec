@@ -27,7 +27,6 @@ like libusb-0.1.
 %package -n %libname
 Summary: %summary
 Group:	System/Libraries
-Requires: pkgconfig
 Provides: %{_lib}usb0.1_4 = %oldlibusb_version
 Obsoletes: %{_lib}usb0.1_4 < %oldlibusb_version
 # old provides from libusb0.1_4
@@ -54,7 +53,6 @@ Provides: libusb-devel = %oldlibusb_version
 Provides: libusb0.1-devel = %oldlibusb_version
 Provides: usb-compat-devel = %{version}-%{release}
 Provides: usb0.1-devel = %{version}-%{release}
-Requires: pkgconfig
 
 %description -n %devellibname
 This package contains the header files, libraries  and documentation needed to
