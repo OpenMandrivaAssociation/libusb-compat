@@ -97,7 +97,7 @@ ln -s %{_libdir}/libusb.a %{buildroot}/%{_lib}/libusb.a
 mv %buildroot/%_lib/pkgconfig %buildroot/%_libdir/
 
 %clean
-rm -rf $RPM_BUILD_ROOT
+rm -rf %{buildroot}
 
 %files -n %libname
 %defattr(-,root,root)
