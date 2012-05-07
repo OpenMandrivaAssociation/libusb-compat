@@ -9,12 +9,11 @@
 
 Summary: A library which allows userspace access to USB devices
 Name: libusb-compat
-Version: 0.1.3
-Release: %mkrel 5
+Version: 0.1.4
+Release: 1
 Source0: http://downloads.sourceforge.net/libusb/libusb-compat-0.1/libusb-compat-0.1.0/%name-%{version}.tar.bz2
 License: LGPLv2+
 Group: System/Libraries
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-
 URL: http://libusb.wiki.sourceforge.net/Libusb1.0
 BuildRequires: doxygen 
 BuildRequires: usb1-devel
@@ -83,7 +82,6 @@ libusb0.
 %make
 
 %install
-rm -rf %buildroot
 %makeinstall_std
 %multiarch_binaries %{buildroot}%{_bindir}/libusb-config
 
@@ -96,26 +94,19 @@ ln -s %{_libdir}/libusb.a %{buildroot}/%{_lib}/libusb.a
 # move pkgconfig
 mv %buildroot/%_lib/pkgconfig %buildroot/%_libdir/
 
-%clean
-rm -rf %{buildroot}
-
 %files -n %libname
-%defattr(-,root,root)
 %doc AUTHORS COPYING README NEWS
 /%{_lib}/libusb-%{api}.so.%{major}*
 
 %files -n %devellibname
-%defattr(-,root,root)
 %doc examples/*.c
 %{_libdir}/pkgconfig/libusb.pc
 %{_includedir}/usb.h
 /%_lib/libusb.so
-/%_lib/libusb.la
 %{multiarch_bindir}/libusb-config
 %_bindir/libusb-config
 
 %files -n %sdevellibname
-%defattr(-,root,root)
 /%_lib/libusb.a
 %{_libdir}/libusb.a
 
