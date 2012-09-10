@@ -17,6 +17,8 @@ Group: System/Libraries
 URL: http://libusb.wiki.sourceforge.net/Libusb1.0
 BuildRequires: doxygen 
 BuildRequires: usb1-devel
+Patch0:	libusb-0.1-libusbx.patch
+Patch1:	libusb-0.1-ansi.patch
 
 %description
 A compatibility layer allowing applications written for libusb-0.1 to work
@@ -74,6 +76,8 @@ libusb0.
 
 %prep
 %setup -q
+%patch0 -p0
+%patch1 -p1
 
 %build
 %configure2_5x \
