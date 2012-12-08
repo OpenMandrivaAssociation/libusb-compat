@@ -7,17 +7,16 @@
 
 %define oldlibusb_version 0.1.12-14
 
-Summary: A library which allows userspace access to USB devices
-Name: libusb-compat
-Version: 0.1.4
-Release: 1
-Source0: http://downloads.sourceforge.net/libusb/libusb-compat-0.1/libusb-compat-0.1.0/%name-%{version}.tar.bz2
-License: LGPLv2+
-Group: System/Libraries
-URL: http://libusb.wiki.sourceforge.net/Libusb1.0
-BuildRequires: doxygen 
-BuildRequires: usb1-devel
-Patch0:	libusb-0.1-libusbx.patch
+Summary:	A library which allows userspace access to USB devices
+Name:		libusb-compat
+Version:	0.1.4
+Release:	3
+Source0:	http://downloads.sourceforge.net/libusb/libusb-compat-0.1/libusb-compat-0.1.0/%name-%{version}.tar.bz2
+License:	LGPLv2+
+Group:		System/Libraries
+URL:		http://libusb.wiki.sourceforge.net/Libusb1.0
+BuildRequires:	doxygen 
+BuildRequires:	usb1-devel
 Patch1:	libusb-0.1-ansi.patch
 
 %description
@@ -76,7 +75,6 @@ libusb0.
 
 %prep
 %setup -q
-%patch0 -p0
 %patch1 -p1
 
 %build
