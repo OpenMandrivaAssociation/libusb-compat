@@ -43,7 +43,7 @@ like libusb-0.1.
 %package -n %{devellibname}
 Summary:	Development files for libusb-0.1
 Group:		Development/C
-Requires:	%{libname} = %{version}
+Requires:	%{libname} = %{version}-%{release}
 Provides:	%{_lib}usb-devel = %oldlibusb_version
 Obsoletes:	%{_lib}usb-devel < %oldlibusb_version
 Obsoletes:	%{_lib}usb0.1_4-devel < %oldlibusb_version
