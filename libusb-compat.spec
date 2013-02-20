@@ -16,8 +16,7 @@ License:	LGPLv2+
 Group:		System/Libraries
 URL:		http://libusb.wiki.sourceforge.net/Libusb1.0
 BuildRequires:	doxygen 
-BuildRequires:	usb1-devel
-BuildConflicts:	%{libname} < %{version}-%{release}
+BuildRequires:	usb1-devel > %oldlibusb_version
 Patch1:			libusb-0.1-ansi.patch
 
 %description
