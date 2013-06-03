@@ -9,8 +9,8 @@
 
 Summary:	A library which allows userspace access to USB devices
 Name:		libusb-compat
-Version:	0.1.4
-Release:	5
+Version:	0.1.5
+Release:	1
 Source0:	http://downloads.sourceforge.net/libusb/libusb-compat-0.1/libusb-compat-0.1.0/%name-%{version}.tar.bz2
 License:	LGPLv2+
 Group:		System/Libraries
@@ -19,7 +19,6 @@ BuildRequires:	doxygen
 BuildRequires:	usb1-devel > 1.0.9
 BuildConflicts:	%{libname} < %{version}-%{release}
 Patch1:		libusb-0.1-ansi.patch
-Patch2:		libusb-compat-aarch64.patch
 
 %description
 A compatibility layer allowing applications written for libusb-0.1 to work
@@ -78,7 +77,6 @@ libusb0.
 %prep
 %setup -q
 %patch1 -p1
-%patch2 -p1
 
 %build
 %configure2_5x \
