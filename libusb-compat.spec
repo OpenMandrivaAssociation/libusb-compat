@@ -6,7 +6,7 @@
 Summary:	A library which allows userspace access to USB devices
 Name:		libusb-compat
 Version:	0.1.5
-Release:	7
+Release:	8
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://libusb.wiki.sourceforge.net/Libusb1.0
