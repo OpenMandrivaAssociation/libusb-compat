@@ -1,12 +1,12 @@
-%define api	0.1
-%define major	4
+%define api 0.1
+%define major 4
 %define libname	%mklibname usb-compat %{api} %{major}
 %define devname	%mklibname -d usb-compat %{api}
 
 Summary:	A library which allows userspace access to USB devices
 Name:		libusb-compat
 Version:	0.1.5
-Release:	12
+Release:	13
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://libusb.wiki.sourceforge.net/Libusb1.0
@@ -44,7 +44,7 @@ develop applications that use libusb-0.1.
 %apply_patches
 
 %build
-%configure2_5x \
+%configure \
 	--disable-static \
 	--libdir=/%{_lib}
 
@@ -52,7 +52,6 @@ develop applications that use libusb-0.1.
 
 %install
 %makeinstall_std
-%multiarch_binaries %{buildroot}%{_bindir}/libusb-config
 
 mkdir -p %{buildroot}%{_libdir}
 mv %{buildroot}/%{_lib}/pkgconfig %{buildroot}/%{_libdir}/
@@ -63,9 +62,7 @@ mv %{buildroot}/%{_lib}/pkgconfig %{buildroot}/%{_libdir}/
 %files -n %{devname}
 %doc AUTHORS COPYING README NEWS
 %doc examples/*.c
-%{multiarch_bindir}/libusb-config
 %{_bindir}/libusb-config
 %{_includedir}/usb.h
 %{_libdir}/pkgconfig/libusb.pc
 /%{_lib}/libusb.so
-
