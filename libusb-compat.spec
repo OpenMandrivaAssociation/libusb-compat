@@ -2,6 +2,7 @@
 %define major 4
 %define libname	%mklibname usb-compat %{api} %{major}
 %define devname	%mklibname -d usb-compat %{api}
+%bcond_without bootstrap
 
 Summary:	A library which allows userspace access to USB devices
 Name:		libusb-compat
@@ -12,7 +13,9 @@ Group:		System/Libraries
 Url:		http://libusb.wiki.sourceforge.net/Libusb1.0
 Source0:	http://downloads.sourceforge.net/libusb/libusb-compat-0.1/libusb-compat-0.1.0/%{name}-%{version}.tar.bz2
 Patch1:		libusb-0.1-ansi.patch
+%if ! %{with bootstrap}
 BuildRequires:	doxygen 
+%endif
 BuildRequires:	pkgconfig(libusb-1.0)
 
 %description
