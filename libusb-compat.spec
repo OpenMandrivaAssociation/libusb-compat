@@ -7,7 +7,7 @@
 Summary:	A library which allows userspace access to USB devices
 Name:		libusb-compat
 Version:	0.1.5
-Release:	16
+Release:	17
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		http://libusb.wiki.sourceforge.net/Libusb1.0
@@ -43,18 +43,17 @@ This package contains the header files, libraries  and documentation needed to
 develop applications that use libusb-0.1.
 
 %prep
-%setup -q
-%apply_patches
+%autosetup -p1
 
 %build
 %configure \
 	--disable-static \
 	--libdir=/%{_lib}
 
-%make
+%make_build
 
 %install
-%makeinstall_std
+%make_install
 
 mkdir -p %{buildroot}%{_libdir}
 mv %{buildroot}/%{_lib}/pkgconfig %{buildroot}/%{_libdir}/
