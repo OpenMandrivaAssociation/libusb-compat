@@ -24,6 +24,7 @@ BuildRequires:	doxygen
 %endif
 BuildRequires:	pkgconfig(libusb-1.0)
 %if %{with compat32}
+BuildRequires:	libc6
 BuildRequires:	devel(libusb-1.0)
 %endif
 
