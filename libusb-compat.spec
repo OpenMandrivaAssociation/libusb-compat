@@ -17,7 +17,7 @@ Version:	0.1.8
 Release:	2
 License:	LGPLv2+
 Group:		System/Libraries
-Url:		http://libusb.info/
+Url:		https://libusb.info/
 Source0:	https://github.com/libusb/libusb-compat-0.1/archive/v%{version}/%{name}-%{version}.tar.gz
 %if ! %{with bootstrap}
 BuildRequires:	doxygen 
