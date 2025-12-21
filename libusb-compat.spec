@@ -20,6 +20,11 @@ Group:		System/Libraries
 Url:		https://libusb.info/
 Source0:	https://github.com/libusb/libusb-compat-0.1/archive/v%{version}/%{name}-%{version}.tar.gz
 %if ! %{with bootstrap}
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	doxygen 
 %endif
 BuildRequires:	pkgconfig(libusb-1.0)
