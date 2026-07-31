@@ -13,8 +13,8 @@
 
 Summary:	A library which allows userspace access to USB devices
 Name:		libusb-compat
-Version:	0.1.8
-Release:	2
+Version:	0.1.9
+Release:	1
 License:	LGPLv2+
 Group:		System/Libraries
 Url:		https://libusb.info/
@@ -79,7 +79,7 @@ develop applications that use libusb-0.1.
 %endif
 
 %prep
-%autosetup -p1 -n %{name}-0.1-%{version}
+%autosetup -p1 -n libusb-compat-0.1-0.1.9
 [ -e configure ] || ./bootstrap.sh
 
 export CONFIGURE_TOP="$(pwd)"
