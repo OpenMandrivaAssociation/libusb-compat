@@ -22,7 +22,7 @@ Source0:	https://github.com/libusb/libusb-compat-0.1/archive/v%{version}/%{name}
 %if ! %{with bootstrap}
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libtool-base
+BuildRequires:	libtool-base libtool
 BuildRequires:	slibtool
 BuildRequires:	make
 BuildRequires:	doxygen 
